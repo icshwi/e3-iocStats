@@ -16,8 +16,8 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Friday, October  6 13:35:46 CEST 2017
-# version : 0.1.0
+# Date    : Tuesday, October 17 12:00:46 CEST 2017
+# version : 0.1.1
 #
 
 TOP:=$(CURDIR)
@@ -47,6 +47,18 @@ ifdef DEBUG_SHELL
 endif
 
 
+# Pass necessary driver.makefile variables through makefile options
+#
+M_OPTIONS := -C $(EPICS_MODULE_SRC_PATH)
+M_OPTIONS += -f $(ESS_MODULE_MAKEFILE)
+M_OPTIONS += LIBVERSION="$(LIBVERSION)"
+M_OPTIONS += PROJECT="$(EPICS_MODULE_NAME)"
+M_OPTIONS += EPICS_MODULES="$(EPICS_MODULES)"
+M_OPTIONS += EPICS_LOCATION="$(EPICS_LOCATION)"
+M_OPTIONS += DEFAULT_EPICS_VERSIONS="$(DEFAULT_EPICS_VERSIONS)"
+M_OPTIONS += BUILDCLASSES="Linux"
+
+
 # # help is defined in 
 # # https://gist.github.com/rcmachado/af3db315e31383502660
 help:
@@ -71,26 +83,30 @@ default: help
 
 
 
-# We have to keep ${EPICS_ENV_PATH} within SUDO
-# 
-## Install   EPICS Module in order to use it with EEE
-install:
-	$(QUIET) sudo -E bash -c 'make -f $(ESS_MODULE_MAKEFILE) install'
 
-#
-## Build     EPICS Module in order to use it with EEE
-build: 
-	make -f $(ESS_MODULE_MAKEFILE) build
+install: uninstall
+	$(QUIET) sudo -E bash -c 'make $(M_OPTIONS) install'
 
-## Clean     EPICS Module in terms of EEE Makefile (module.Makefile)
-clean:
-	make -f $(ESS_MODULE_MAKEFILE) clean
+## Uninstall "Require" Module in order not to use it
+uninstall: conf
+	$(QUIET) sudo -E bash -c 'make $(M_OPTIONS) uninstall'
 
 
-## Distclean EPICS Module in terms of EEE Makefile (module.Makefile)
-distclean:
-	make -f $(ESS_MODULE_MAKEFILE) distclean
 
+## Build the EPICS Module
+build: conf
+	$(QUIET) make $(M_OPTIONS) build
+
+## clean, build, and install again.
+rebuild: clean build install
+
+## Clean the EPICS Module
+clean: conf
+	$(QUIET) make $(M_OPTIONS) clean
+
+## Show driver.makefile help
+help2:
+	$(QUIET) make $(M_OPTIONS) help
 
 #
 ## Initialize EPICS BASE and E3 ENVIRONMENT Module
@@ -102,7 +118,7 @@ git-submodule-sync:
 
 $(EPICS_MODULE_NAME): 
 	$(QUIET) $(git_update)
-	cd $@ && git checkout tags/$(REQUIRE_MODULE_TAG)
+#	cd $@ && git checkout tags/$(REQUIRE_MODULE_TAG)
 
 
 $(E3_ENV_NAME): 
@@ -113,16 +129,17 @@ $(E3_ENV_NAME):
 env:
 	$(QUIET) echo ""
 
-	$(QUIET) echo "EPICS_MODULE_NAME           : "$(EPICS_MODULE_NAME)
-	$(QUIET) echo "REQUIRE_MODULE_TAG          : "$(REQUIRE_MODULE_TAG)
 	$(QUIET) echo "EPICS_MODULE_SRC_PATH       : "$(EPICS_MODULE_SRC_PATH)
 	$(QUIET) echo "ESS_MODULE_MAKEFILE         : "$(ESS_MODULE_MAKEFILE)
+	$(QUIET) echo "EPICS_MODULE_TAG            : "$(EPICS_MODULE_TAG)
+	$(QUIET) echo "LIBVERSION                  : "$(LIBVERSION)
+	$(QUIET) echo "PROJECT                     : "$(PROJECT)
 
 	$(QUIET) echo ""
 	$(QUIET) echo "----- >>>> EPICS BASE Information <<<< -----"
 	$(QUIET) echo ""
 	$(QUIET) echo "EPICS_BASE_TAG              : "$(EPICS_BASE_TAG)
-	$(QUIET) echo "CROSS_COMPILER_TARGET_ARCHS : "$(CROSS_COMPILER_TARGET_ARCHS)
+#	$(QUIET) echo "CROSS_COMPILER_TARGET_ARCHS : "$(CROSS_COMPILER_TARGET_ARCHS)
 	$(QUIET) echo ""
 	$(QUIET) echo "----- >>>> ESS EPICS Environment  <<<< -----"
 	$(QUIET) echo ""
@@ -136,7 +153,8 @@ env:
 	$(QUIET) echo "REQUIRE_BIN                 : "$(REQUIRE_BIN)
 	$(QUIET) echo ""
 
+conf:
+	$(QUIET) install -m 644 $(TOP)/$(ESS_MODULE_MAKEFILE)  $(EPICS_MODULE_SRC_PATH)/
 
 
-
-.PHONY: env
+.PHONY: env $(E3_ENV_NAME) $(EPICS_MODULE_NAME) git-submodule-sync init help help2 build clean install uninstall conf rebuild
