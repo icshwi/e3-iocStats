@@ -118,7 +118,7 @@ git-submodule-sync:
 
 $(EPICS_MODULE_NAME): 
 	$(QUIET) $(git_update)
-#	cd $@ && git checkout tags/$(REQUIRE_MODULE_TAG)
+	cd $@ && git checkout $(EPICS_MODULE_TAG)
 
 
 $(E3_ENV_NAME): 
