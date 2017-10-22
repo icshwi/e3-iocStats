@@ -17,7 +17,7 @@
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
 # Date    : Tuesday, October 17 12:00:46 CEST 2017
-# version : 0.1.1
+# version : 0.1.2
 #
 
 TOP:=$(CURDIR)
@@ -25,7 +25,7 @@ TOP:=$(CURDIR)
 include $(TOP)/configure/CONFIG
 
 -include $(TOP)/$(E3_ENV_NAME)/$(E3_ENV_NAME)
-
+-include $(TOP)/$(E3_ENV_NAME)/epics-community-env
 
 # Keep always the module up-to-date
 define git_update =
@@ -157,4 +157,12 @@ conf:
 	$(QUIET) install -m 644 $(TOP)/$(ESS_MODULE_MAKEFILE)  $(EPICS_MODULE_SRC_PATH)/
 
 
-.PHONY: env $(E3_ENV_NAME) $(EPICS_MODULE_NAME) git-submodule-sync init help help2 build clean install uninstall conf rebuild
+epics:
+#	sudo -E ' $(MAKE) -C $(EPICS_MODULE_SRC_PATH) clean'
+#       no RELEASE.local in iocStats
+	@echo "EPICS_BASE=$(COMMUNITY_EPICS_BASE)"  > $(TOP)/$(EPICS_MODULE_SRC_PATH)/configure/RELEASE
+	@echo "INSTALL_LOCATION=$(M_IOCSTATS)" > $(TOP)/$(EPICS_MODULE_SRC_PATH)/configure/CONFIG_SITE	
+	sudo -E bash -c "$(MAKE) -C $(EPICS_MODULE_SRC_PATH)"
+
+
+.PHONY: env $(E3_ENV_NAME) $(EPICS_MODULE_NAME) git-submodule-sync init help help2 build clean install uninstall conf rebuild epics
