@@ -87,20 +87,9 @@ USR_DBFLAGS += -I . -I ..
 USR_DBFLAGS += -I$(EPICS_BASE)/db
 USR_DBFLAGS += -I$(IOCADMINDB)
 
-SUB = iocAdminScanMon.substitutions
-SUB += iocAdminSoft.substitutions
 
-TEM = iocGeneralTime.template
-TEM += iocScanMonSum.template
-TEM += iocScanMon.template
-TEM += iocCluster.template
-TEM += iocEnvVar.template
-TEM += iocRTOS.template
-TEM += ioc.template
-
-
-SUBS:=$(addprefix $(IOCADMINDB)/, $(SUB))
-TEMS:=$(addprefix $(IOCADMINDB)/, $(TEM))
+SUBS = $(wildcard $(IOCADMINDB)/*.substitutions)
+TEMS = $(wildcard $(IOCADMINDB)/*.template)
 
 
 db: $(SUBS) $(TEMS)
