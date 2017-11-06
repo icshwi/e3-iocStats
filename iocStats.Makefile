@@ -1,5 +1,5 @@
 
-include ${REQUIRE_TOOLS}/driver.makefile
+include $(REQUIRE_TOOLS)/driver.makefile
 
 DEVIOCSTATS:=devIocStats
 
@@ -57,20 +57,67 @@ SOURCES += $(DEVIOCSTATS)/os/posix/osdSystemInfo.c
 SOURCES += $(DEVIOCSTATS)/os/posix/osdHostInfo.c
 SOURCES += $(DEVIOCSTATS)/os/posix/osdPIDInfo.c
 
-
 DBDS    += $(DEVIOCSTATS)/devIocStats.dbd
 
-IOCADMIN:=iocAdmin
-
-DBDS    += $(IOCADMIN)/src/iocAdmin.dbd
+HEADERS += $(DEVIOCSTATS)/devIocStats.h
 
 
-TEMPLATES += $(IOCADMIN)/Db/ioc.template
-TEMPLATES += $(IOCADMIN)/Db/iocScanMon.template
-TEMPLATES += $(IOCADMIN)/Db/iocScanMonSum.template
-TEMPLATES += $(IOCADMIN)/Db/iocGeneralTime.template
-TEMPLATES += $(IOCADMIN)/Db/iocEnvVar.template
-TEMPLATES += $(IOCADMIN)/Db/iocCluster.template
-TEMPLATES += $(IOCADMIN)/Db/iocAdminSoft.substitutions
-TEMPLATES += $(IOCADMIN)/Db/iocAdminScanMon.substitutions
+IOCADMIN:= iocAdmin
+IOCADMINSRC:=$(IOCADMIN)/src
+IOCADMINDB:=$(IOCADMIN)/Db
 
+DBDS    += $(IOCADMINSRC)/iocAdmin.dbd
+
+
+
+
+TEMPLATES += $(wildcard $(IOCADMINDB)/*.db)
+TEMPLATES += $(wildcard $(IOCADMINDB)/*.template)
+#TEMPLATES += $(wildcard $(IOCADMINDB)/*.substitutions)
+
+
+
+
+
+EPICS_BASE_HOST_BIN = $(EPICS_BASE)/bin/$(EPICS_HOST_ARCH)
+MSI =  $(EPICS_BASE_HOST_BIN)/msi
+
+
+USR_DBFLAGS += -I . -I ..
+USR_DBFLAGS += -I$(EPICS_BASE)/db
+USR_DBFLAGS += -I$(IOCADMINDB)
+
+SUB = iocAdminScanMon.substitutions
+SUB += iocAdminSoft.substitutions
+
+TEM = iocGeneralTime.template
+TEM += iocScanMonSum.template
+TEM += iocScanMon.template
+TEM += iocCluster.template
+TEM += iocEnvVar.template
+TEM += iocRTOS.template
+TEM += ioc.template
+
+
+SUBS:=$(addprefix $(IOCADMINDB)/, $(SUB))
+TEMS:=$(addprefix $(IOCADMINDB)/, $(TEM))
+
+
+db: $(SUBS) $(TEMS)
+
+$(SUBS): 
+	@printf "Inflating database ... %44s >>> %40s \n" "$@" "$(basename $(@)).db"
+	@rm -f  $(basename $(@)).db.d  $(basename $(@)).db
+	@$(MSI) -D $(USR_DBFLAGS) -o $(basename $(@)).db -S $@  > $(basename $(@)).db.d
+	@$(MSI)    $(USR_DBFLAGS) -o $(basename $(@)).db -S $@
+
+$(TEMS): 
+	@printf "Inflating database ... %44s >>> %40s \n" "$@" "$(basename $(@)).db"
+	@rm -f  $(basename $(@)).db.d  $(basename $(@)).db
+	@$(MSI) -D $(USR_DBFLAGS) -o $(basename $(@)).db $@  > $(basename $(@)).db.d
+	@$(MSI)    $(USR_DBFLAGS) -o $(basename $(@)).db $@
+
+
+
+
+.PHONY: db $(SUBS) $(TEMS) 

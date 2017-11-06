@@ -84,7 +84,7 @@ default: help
 
 
 
-install: uninstall
+install: uninstall db
 	$(QUIET) sudo -E bash -c 'make $(M_OPTIONS) install'
 
 ## Uninstall "Require" Module in order not to use it
@@ -155,6 +155,23 @@ env:
 
 conf:
 	$(QUIET) install -m 644 $(TOP)/$(ESS_MODULE_MAKEFILE)  $(EPICS_MODULE_SRC_PATH)/
+
+
+### We have to think how to find $(EPICS_BASE) and
+### $(EPICS_HOST_ARCH) during driver.makefile
+### Friday, November  3 16:44:55 CET 2017, jhlee
+### Currently feasible solutoin without touching driver.makefile
+### is the following:
+###
+### 0) source setE3Env.bash 3.15.4
+### 1) make db
+### 2) make install
+### 3) source setE3Env.bash 3.15.5
+### 4) make db
+### 5) make install 
+###   ..... 
+db: conf
+	$(QUIET) make $(M_OPTIONS) db
 
 
 epics:
