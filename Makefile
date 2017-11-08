@@ -84,7 +84,7 @@ default: help
 
 
 
-install: uninstall db
+install: uninstall 
 	$(QUIET) sudo -E bash -c 'make $(M_OPTIONS) install'
 
 ## Uninstall "Require" Module in order not to use it
