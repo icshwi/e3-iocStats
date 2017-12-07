@@ -1,4 +1,5 @@
 #
+#  Copyright (c) 2017 - Present  Jeong Han Lee
 #  Copyright (c) 2017 - Present  European Spallation Source ERIC
 #
 #  The program is free software: you can redistribute
@@ -16,13 +17,19 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Tuesday, October 17 12:00:46 CEST 2017
-# version : 0.1.2
+# Date    : Friday, December  8 00:18:17 CET 2017
+# version : 0.2.0
 #
 
 TOP:=$(CURDIR)
 
+
+ifneq (,$(findstring dev,$(MAKECMDGOALS)))
+include $(TOP)/configure/CONFIG_DEV
+else
 include $(TOP)/configure/CONFIG
+endif
+
 
 -include $(TOP)/$(E3_ENV_NAME)/$(E3_ENV_NAME)
 -include $(TOP)/$(E3_ENV_NAME)/epics-community-env
@@ -52,7 +59,7 @@ endif
 M_OPTIONS := -C $(EPICS_MODULE_SRC_PATH)
 M_OPTIONS += -f $(ESS_MODULE_MAKEFILE)
 M_OPTIONS += LIBVERSION="$(LIBVERSION)"
-M_OPTIONS += PROJECT="$(EPICS_MODULE_NAME)"
+M_OPTIONS += PROJECT="$(PROJECT)"
 M_OPTIONS += EPICS_MODULES="$(EPICS_MODULES)"
 M_OPTIONS += EPICS_LOCATION="$(EPICS_LOCATION)"
 M_OPTIONS += DEFAULT_EPICS_VERSIONS="$(DEFAULT_EPICS_VERSIONS)"
@@ -179,8 +186,8 @@ db: conf
 epics:
 #	sudo -E ' $(MAKE) -C $(EPICS_MODULE_SRC_PATH) clean'
 #       no RELEASE.local in iocStats
-	@echo "EPICS_BASE=$(COMMUNITY_EPICS_BASE)"  > $(TOP)/$(EPICS_MODULE_SRC_PATH)/configure/RELEASE
-	@echo "INSTALL_LOCATION=$(M_IOCSTATS)" > $(TOP)/$(EPICS_MODULE_SRC_PATH)/configure/CONFIG_SITE	
+	$(QUIET)echo "EPICS_BASE=$(COMMUNITY_EPICS_BASE)"  > $(TOP)/$(EPICS_MODULE_SRC_PATH)/configure/RELEASE
+	$(QUIET)echo "INSTALL_LOCATION=$(M_IOCSTATS)" > $(TOP)/$(EPICS_MODULE_SRC_PATH)/configure/CONFIG_SITE	
 	sudo -E bash -c "$(MAKE) -C $(EPICS_MODULE_SRC_PATH)"
 
 epics-clean:
@@ -188,3 +195,16 @@ epics-clean:
 
 
 .PHONY: env $(E3_ENV_NAME) $(EPICS_MODULE_SRC_PATH) git-submodule-sync init help help2 build clean install uninstall conf rebuild epics epics-clean checkout
+
+
+.PHONY: devinit devenv devbuild devclean devrebuild devuninstall
+
+devinit:
+	$(QUIET)git clone $(DEV_GIT_URL) $(EPICS_MODULE_SRC_PATH)
+
+devenv: env
+devbuild: build
+devclean: clean
+devrebuild: rebuild
+devuninstall : uninstall
+
