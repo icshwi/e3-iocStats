@@ -199,7 +199,8 @@ epics-clean:
 
 .PHONY: devinit devenv devbuild devclean devrebuild devuninstall
 
-devinit:
+##
+devinit: git-submodule-sync  $(E3_ENV_NAME)
 	$(QUIET)git clone $(DEV_GIT_URL) $(EPICS_MODULE_SRC_PATH)
 
 devenv: env
