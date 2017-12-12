@@ -10,8 +10,9 @@ export EPICS_MODULE_SRC_PATH:=iocStats-dev
 export ESS_MODULE_MAKEFILE:=$(EPICS_MODULE_NAME).Makefile
 export PROJECT:=$(EPICS_MODULE_NAME)
 export LIBVERSION:=develop
-export E3_ENV_NAME:=e3-env
-export E3_ENV_TAG:=master
+export E3_ENV_PATH:=e3-env
+export E3_ENV_NAME:=E3_ENV_CONF
+export E3_ENV_TAG:=target_path_test
 # 
 #export DEV_GIT_URL:="https://where your git repo"
 export DEV_GIT_URL:="https://github.com/epics-modules/iocStats"

@@ -21,6 +21,7 @@
 # Date    : Tuesday, December 12 13:47:08 CET 2017
 # version : 0.3.0
 #
+#
 TOP:=$(CURDIR)
 
 ifneq (,$(findstring dev,$(MAKECMDGOALS)))
@@ -29,7 +30,7 @@ else
 include $(TOP)/configure/CONFIG
 endif
 
--include $(TOP)/$(E3_ENV_NAME)/$(E3_ENV_NAME)
+-include $(TOP)/$(E3_ENV_PATH)/$(E3_ENV_NAME)
 
 include $(TOP)/configure/MK_DEFINES
 
