@@ -6,8 +6,11 @@
 #
 devinit: git-submodule-sync  $(E3_ENV_NAME)
 	git clone $(DEV_GIT_URL) $(EPICS_MODULE_SRC_PATH)
-
+	cd $(EPICS_MODULE_SRC_PATH) && git checkout $(EPICS_MODULE_TAG)
+	
 devenv: env
+	cd $(E3_ENV_NAME) && git checkout $(E3_ENV_TAG)
+
 devbuild: build
 devclean: clean
 devrebuild: rebuild

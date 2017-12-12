@@ -11,7 +11,7 @@ export ESS_MODULE_MAKEFILE:=$(EPICS_MODULE_NAME).Makefile
 export PROJECT:=$(EPICS_MODULE_NAME)
 export LIBVERSION:=develop
 export E3_ENV_NAME:=e3-env
-#export E3_ENV_TAG:=v0.1
+export E3_ENV_TAG:=master
 # 
 #export DEV_GIT_URL:="https://where your git repo"
 export DEV_GIT_URL:="https://github.com/epics-modules/iocStats"
