@@ -24,26 +24,7 @@
 #
 TOP:=$(CURDIR)
 
-ifneq (,$(findstring dev,$(MAKECMDGOALS)))
-include $(TOP)/configure/CONFIG_DEV
-else
 include $(TOP)/configure/CONFIG
-endif
 
--include $(TOP)/$(E3_ENV_PATH)/$(E3_ENV_NAME)
-
-include $(TOP)/configure/MK_DEFINES
-
-include $(TOP)/configure/BUILD_E3
-
-include $(TOP)/configure/BUILD_DB
-
-# Build Rule for Community EPICS Building
-include $(TOP)/configure/BUILD_EPICS
-
-# Build Rule for Development Mode
-ifneq (,$(findstring dev,$(MAKECMDGOALS)))
-include $(TOP)/configure/BUILD_DEV
-endif
-
+include $(TOP)/configure/RULES
 

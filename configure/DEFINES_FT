@@ -17,3 +17,8 @@ ifdef DEBUG_SHELL
   SHELL = /bin/sh -x
 endif
 
+
+### Exclude the following variables to display 
+VARS_EXCLUDES+=git_update
+VARS_EXCLUDES+=QUIET
+VARS_EXCLUDES+=SHELL

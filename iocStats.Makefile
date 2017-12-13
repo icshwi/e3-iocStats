@@ -1,5 +1,7 @@
 
-include $(REQUIRE_TOOLS)/driver.makefile
+include $(E3_REQUIRE_TOOLS)/driver.makefile
+
+#include /testing/epics/base-3.15.5/require/0.0.1/tools/driver.makefile
 
 DEVIOCSTATS:=devIocStats
 
