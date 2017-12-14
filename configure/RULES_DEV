@@ -13,7 +13,7 @@ devinit: git-submodule-sync
 devbuild: build
 devclean: clean
 devrebuild: rebuild
-devuninstall :uninstall
+devuninstall: uninstall
 devdistclean: clean
 	$(QUIET)echo "Removing $(E3_MODULE_SRC_PATH) ......... "
 	rm -rf $(E3_MODULE_SRC_PATH)
