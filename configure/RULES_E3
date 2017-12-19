@@ -25,7 +25,7 @@ help:
 
 
 ## Install : $(E3_MODULE_NAME)
-install: uninstall
+install: uninstall db
 	$(QUIET) $(SUDOBASH) '$(E3_MODULE_MAKE_CMDS) install'
 
 ## Uninstall : $(E3_MODULE_NAME)
