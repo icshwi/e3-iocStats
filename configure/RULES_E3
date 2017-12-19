@@ -1,6 +1,7 @@
-
-
+# -*- mode: Makefile;-*-
 .PHONY: help default install uninstall build rebuild clean conf
+
+default: help
 
 
 # # help is defined in 
@@ -22,22 +23,21 @@ help:
 	$(MAKEFILE_LIST) | column -ts:	
 
 
-default: help
 
 ## Install : $(E3_MODULE_NAME)
 install: uninstall
-	$(QUIET) sudo -E bash -c 'make $(E3_REQUIRE_MAKEFILE_INPUT_OPTIONS) install'
+	$(QUIET) $(SUDOBASH) '$(E3_MODULE_MAKE_CMDS) install'
 
 ## Uninstall : $(E3_MODULE_NAME)
 uninstall: conf
-	$(QUIET) sudo -E bash -c 'make $(E3_REQUIRE_MAKEFILE_INPUT_OPTIONS) uninstall'
+	$(QUIET) $(SUDOBASH) '$(E3_MODULE_MAKE_CMDS) uninstall'
 
 
 
 ## Build the EPICS Module : $(E3_MODULE_NAME)
 # Build always the Module with the EPICS_MODULES_TAG
 build: conf checkout
-	$(QUIET) make $(E3_REQUIRE_MAKEFILE_INPUT_OPTIONS) build
+	$(QUIET) $(E3_MODULE_MAKE_CMDS) build
 
 
 ## Clean, build, and install the EPICS Module : $(E3_MODULE_NAME)
@@ -46,7 +46,7 @@ rebuild: clean build install
 
 ## Clean : $(E3_MODULE_NAME)
 clean: conf
-	$(QUIET) make $(E3_REQUIRE_MAKEFILE_INPUT_OPTIONS) clean
+	$(QUIET) $(E3_MODULE_MAKE_CMDS) clean
 
 
 ## Copy $(E3_MODULE_MAKEFILE) into $(E3_MODULE_SRC_PATH)
@@ -55,11 +55,10 @@ conf:
 
 
 
-
-.PHONY: init git-submodule-sync$(E3_MODULE_SRC_PATH)  checkout
+.PHONY: init git-submodule-sync $(E3_MODULE_SRC_PATH)  checkout
 
 ## Initialize : $(E3_MODULE_SRC_PATH) 
-init: git-submodule-sync $(E3_MODULE_SRC_PATH) 
+init: git-submodule-sync $(E3_MODULE_SRC_PATH)  checkout
 
 git-submodule-sync:
 	$(QUIET) git submodule sync
@@ -67,20 +66,6 @@ git-submodule-sync:
 
 $(E3_MODULE_SRC_PATH): 
 	$(QUIET) $(git_update)
-	cd $@ && git checkout $(EPICS_MODULE_TAG)
-
 
 checkout: 
 	cd $(E3_MODULE_SRC_PATH) && git checkout $(EPICS_MODULE_TAG)
-
-
-
-
-
-
-# .PHONY: help2
-
-# ## Show driver.makefile help
-# help2:
-# 	$(QUIET) make $(E3_REQUIRE_MAKEFILE_INPUT_OPTIONS) help
-

@@ -1,4 +1,4 @@
-
+# -*- mode: Makefile;-*-
 ## This RULE should be used in case of inflating DB files
 ## 
 
@@ -19,5 +19,5 @@
 ###   ..... 
 
 db: conf
-	$(QUIET) make $(M_OPTIONS) db
+	$(QUIET) $(E3_MODULE_MAKE_CMDS) db
 
