@@ -2,12 +2,14 @@
 
 E3_MODULES_VARIABLES:=$(sort $(filter-out $(VARS_EXCLUDES) VARS_EXCLUDES,$(.VARIABLES)))
 
-.PHONY : vars env header
+.PHONY : env vars header
+
+
+## Print interesting VARIABLES
+env: vars
 
 vars: header
 	$(foreach v, $(E3_MODULES_VARIABLES), $(info $(v) = $($(v)))) @#noop
-	 
-env: vars
 
 header:
 	$(QUIET)echo ""
