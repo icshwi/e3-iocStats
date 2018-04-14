@@ -14,5 +14,10 @@ E3_MODULE_DEV_GITURL:="https://github.com/epics-modules/iocStats"
 
 
 
-# The definitions shown below can also be placed in an untracked CONFIG_MODULE.local
+# The definitions shown below can also be placed in an untracked CONFIG_MODULE_DEV.local
+-include $(TOP)/configure/CONFIG_MODULE_DEV.local
+
+
+
+# The definitions shown below can also be placed in an untracked CONFIG_MODULE_DEV.local
 -include $(TOP)/configure/CONFIG_MODULE_DEV.local
