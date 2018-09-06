@@ -1,6 +1,6 @@
 [submodule "iocStats"]
 	path = iocStats
 	url = https://github.com/icshwi/iocStats
-	ignore = dirty
+#	ignore = dirty
 
 
