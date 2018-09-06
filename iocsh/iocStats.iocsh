@@ -1,0 +1,10 @@
+# ### IOCSTATS iocsh  ###
+#- ###################################################
+#- IOCNAME          - IOCSTATS IOCNAME
+#- SEP              - SEPERATOR in iocStats DB (proposal)
+#-                    Optional : Defalut IocStats:
+#- ###################################################
+
+#- $(IOC)$(SEP=:)ACCESS
+dbLoadRecords("iocAdminSoft-ess.db", "IOC=$(IOCNAME), SEPTYPE=$(SEP=IocStats:)")
+

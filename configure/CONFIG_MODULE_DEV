@@ -1,15 +1,15 @@
 #
 EPICS_MODULE_NAME:=iocStats
-EPICS_MODULE_TAG:=3.1.15
+EPICS_MODULE_TAG:=master
 #
-E3_MODULE_VERSION:=3.1.15
+E3_MODULE_VERSION:=jhlee
 #
 E3_MODULE_NAME:=$(EPICS_MODULE_NAME)
 E3_MODULE_SRC_PATH:=$(EPICS_MODULE_NAME)-dev
 E3_MODULE_MAKEFILE:=$(EPICS_MODULE_NAME).Makefile
 
 #export DEV_GIT_URL:="https://where your git repo"
-E3_MODULE_DEV_GITURL:="https://github.com/epics-modules/iocStats"
+E3_MODULE_DEV_GITURL:="https://github.com/icshwi/iocStats"
 
 
 
@@ -17,7 +17,3 @@ E3_MODULE_DEV_GITURL:="https://github.com/epics-modules/iocStats"
 # The definitions shown below can also be placed in an untracked CONFIG_MODULE_DEV.local
 -include $(TOP)/configure/CONFIG_MODULE_DEV.local
 
-
-
-# The definitions shown below can also be placed in an untracked CONFIG_MODULE_DEV.local
--include $(TOP)/configure/CONFIG_MODULE_DEV.local
