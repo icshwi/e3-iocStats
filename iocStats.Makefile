@@ -17,8 +17,8 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Monday, September 10 09:03:51 CEST 2018
-# version : 0.0.3
+# Date    : Monday, September 10 09:23:12 CEST 2018
+# version : 0.0.4
 
 where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
