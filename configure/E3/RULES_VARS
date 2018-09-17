@@ -1,4 +1,3 @@
-# -*- mode: Makefile;-*-
 
 E3_MODULES_VARIABLES:=$(sort $(filter-out $(VARS_EXCLUDES) VARS_EXCLUDES,$(.VARIABLES)))
 
@@ -18,3 +17,6 @@ header:
 	$(QUIET)echo "------------------------------------------------------------"
 	$(QUIET)echo ""
 
+
+existent:
+	$(QUIET)tree -L 2 $(E3_MODULES_PATH)/$(E3_MODULE_NAME)
