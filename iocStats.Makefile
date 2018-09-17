@@ -17,8 +17,8 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Monday, September 10 09:23:12 CEST 2018
-# version : 0.0.4
+# Date    : Monday, September 17 18:30:17 CEST 2018
+# version : 0.0.5
 
 where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
@@ -94,6 +94,11 @@ IOCADMINSRC:=$(IOCADMIN)/src
 IOCADMINDB:=$(IOCADMIN)/Db
 
 DBDS      += $(IOCADMINSRC)/iocAdmin.dbd
+
+
+
+SCRIPTS += ../iocsh/iocStats.iocsh
+
 
 TEMPLATES += $(wildcard $(IOCADMINDB)/*.db)
 TEMPLATES += $(wildcard $(IOCADMINDB)/*.template)
