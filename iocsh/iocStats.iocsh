@@ -3,5 +3,5 @@
 #- IOCNAME          - IOCSTATS IOCNAME
 #- ###################################################
 
-dbLoadRecords("iocAdminSoft.db", "IOC=$(IOCNAME)IocStats")
+dbLoadRecords("iocAdminSoft.db", "IOC=$(IOCNAME)-IocStats")
 
