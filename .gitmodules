@@ -1,6 +1,6 @@
 [submodule "iocStats"]
 	path = iocStats
-	url = https://github.com/icshwi/iocStats
+	url = https://github.com/epics-modules/iocStats
 	ignore = all
 
 
