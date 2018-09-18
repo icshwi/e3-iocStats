@@ -1,6 +1,7 @@
 [submodule "iocStats"]
 	path = iocStats
 	url = https://github.com/epics-modules/iocStats
-	ignore = all
+	ignore = dirty
+	
 
 
