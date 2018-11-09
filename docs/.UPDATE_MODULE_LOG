@@ -1,0 +1,30 @@
+
+>>
+Update Log Time    : 2018Nov09-2132-55CET
+>>
+Script is used     : e3TemplateGenerator
+Script Path        : /home/jhlee/gitsrc/e3-tools/e3TemplateGenerator
+User               : jhlee
+e3 repo Hash       : 90415f4
+
+>>
+Update Log Time    : 2018Nov09-2148-24CET
+>>
+Script is used     : e3TemplateGenerator
+Script Path        : /home/jhlee/gitsrc/e3-tools/e3TemplateGenerator
+User               : jhlee
+e3 repo Hash       : 90415f4
+
+>>
+Update Log Time    : 2018Nov09-2150-15CET
+>>
+Script is used     : e3TemplateGenerator
+Script Path        : /home/jhlee/gitsrc/e3-tools/e3TemplateGenerator
+User               : jhlee
+e3 repo Hash       : 90415f4
+
+EPICS_MODULE_NAME  :                           iocStats
+E3 MODULE VERSION  :                            ae5d083
+EPICS BASE VERSION :                        base-3.15.5
+E3 REQUIRE VERSION :                              3.0.2
+>>
