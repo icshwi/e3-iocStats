@@ -9,7 +9,7 @@ epicsEnvSet("R", "$(DIS)-$(DEV)")
 epicsEnvSet("IOCNAME", "$(P)$(R)")
 
 
-loadIocsh("iocStats.iocsh", "IOCNAME=$(IOCNAME)")
+iocshLoad("$(iocStats_DIR)/iocStats.iocsh", "IOCNAME=$(IOCNAME)")
 
 iocInit()
 
