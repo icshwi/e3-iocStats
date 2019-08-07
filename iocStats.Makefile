@@ -1,5 +1,5 @@
 #
-#  Copyright (c) 2017 - Present  Jeong Han Lee
+#  Copyright (c) 2017 - 2019     Jeong Han Lee
 #  Copyright (c) 2017 - Present  European Spallation Source ERIC
 #
 #  The program is free software: you can redistribute
@@ -17,11 +17,10 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Monday, September 17 18:30:17 CEST 2018
-# version : 0.0.5
+# Date    : Wednesday, August  7 14:38:14 CEST 2019
+# version : 0.1.0
 
 where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 include $(E3_REQUIRE_CONFIG)/DECOUPLE_FLAGS
 
@@ -90,10 +89,11 @@ HEADERS += $(DEVIOCSTATS)/devIocStats.h
 
 
 IOCADMIN:= iocAdmin
-IOCADMINSRC:=$(IOCADMIN)/src
+#IOCADMINSRC:=$(IOCADMIN)/src
 IOCADMINDB:=$(IOCADMIN)/Db
-
-DBDS      += $(IOCADMINSRC)/iocAdmin.dbd
+# The following DBD contains "devIocStats.dbd", so it is not
+# necessary to add it again. 
+# DBDS      += $(IOCADMINSRC)/iocAdmin.dbd
 
 
 
