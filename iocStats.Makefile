@@ -1,6 +1,6 @@
 #
 #  Copyright (c) 2017 - 2019     Jeong Han Lee
-#  Copyright (c) 2017 - Present  European Spallation Source ERIC
+#  Copyright (c) 2017 - 2019     European Spallation Source ERIC
 #
 #  The program is free software: you can redistribute
 #  it and/or modify it under the terms of the GNU General Public License
@@ -17,8 +17,8 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Wednesday, August  7 14:38:14 CEST 2019
-# version : 0.1.0
+# Date    : Wednesday, September 11 20:57:11 CEST 2019
+# version : 0.1.1
 
 where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 include $(E3_REQUIRE_TOOLS)/driver.makefile
@@ -89,8 +89,12 @@ HEADERS += $(DEVIOCSTATS)/devIocStats.h
 
 
 IOCADMIN:= iocAdmin
-#IOCADMINSRC:=$(IOCADMIN)/src
+IOCADMINSRC:=$(IOCADMIN)/src
 IOCADMINDB:=$(IOCADMIN)/Db
+
+# Not sure the following file is useful or not
+SCRIPTS += $(IOCADMINSRC)/iocReleaseCreateDb.py
+
 # The following DBD contains "devIocStats.dbd", so it is not
 # necessary to add it again. 
 # DBDS      += $(IOCADMINSRC)/iocAdmin.dbd

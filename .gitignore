@@ -11,4 +11,4 @@ core.*
 *.png
 *.svg
 *.gv
-
+*.list
