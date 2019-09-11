@@ -1,0 +1,8 @@
+digraph iocStats {
+node [shape=record];
+base [label="base 7.0.3"]
+require [label="require 3.1.1"]
+iocStats [label="iocStats 3.1.16"]
+base -> require ->  iocStats 
+} 
+

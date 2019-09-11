@@ -1,4 +1,4 @@
-require iocStats,ae5d083
+require iocStats,3.1.16
 
 epicsEnvSet("SEC", "SEC")
 epicsEnvSet("SUB", "SUB01")
