@@ -17,8 +17,8 @@
 #
 # Author  : Jeong Han Lee
 # email   : han.lee@esss.se
-# Date    : Wednesday, September 11 20:57:11 CEST 2019
-# version : 0.1.1
+# Date    : Friday, November 15 12:29:21 CET 2019
+# version : 0.1.2
 
 where_am_I := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 include $(E3_REQUIRE_TOOLS)/driver.makefile
@@ -100,16 +100,11 @@ SCRIPTS += $(IOCADMINSRC)/iocReleaseCreateDb.py
 # DBDS      += $(IOCADMINSRC)/iocAdmin.dbd
 
 
-
 SCRIPTS += ../iocsh/iocStats.iocsh
 
 
 TEMPLATES += $(wildcard $(IOCADMINDB)/*.db)
 TEMPLATES += $(wildcard $(IOCADMINDB)/*.template)
-#TEMPLATES += $(wildcard $(IOCADMINDB)/*.substitutions)
-
-
-
 
 
 USR_DBFLAGS += -I . -I ..
@@ -118,7 +113,7 @@ USR_DBFLAGS += -I$(IOCADMINDB)
 
 
 SUBS = $(wildcard $(IOCADMINDB)/*.substitutions)
-TEMS = $(wildcard $(IOCADMINDB)/*.template)
+#TEMS = $(wildcard $(IOCADMINDB)/*.template)
 
 
 db: $(SUBS) $(TEMS)

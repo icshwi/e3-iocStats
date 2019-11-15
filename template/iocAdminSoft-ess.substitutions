@@ -1,0 +1,49 @@
+#==============================================================================
+#
+# Abs:  IOC Administration Records for Soft IOCs
+#
+# Name: iocAdminSoft-ess.substitutions
+#
+#==============================================================================
+#
+global { IOCNAME=$(IOC) }
+
+file "iocGeneralTime.template"
+{
+pattern {""}
+        {""}
+}
+
+file "ioc.template"
+{
+pattern { TODFORMAT           }
+  	{ "%m/%d/%Y %H:%M:%S" }
+}
+
+# > epicsPrtEnvParams
+file "iocEnvVar.template"
+{
+pattern { ENVNAME             , ENVVAR                          , ENVTYPE}
+	{ CA_ADDR_LIST        , EPICS_CA_ADDR_LIST              , epics  } 
+	{ CA_CONN_TIME        , EPICS_CA_CONN_TMO               , epics  } 
+	{ CA_AUTO_ADDR        , EPICS_CA_AUTO_ADDR_LIST         , epics  }
+	{ CA_RPTR_PORT        , EPICS_CA_REPEATER_PORT          , epics  }
+	{ CA_SRVR_PORT        , EPICS_CA_SERVER_PORT            , epics  }
+	{ CA_MAX_ARRAY        , EPICS_CA_MAX_ARRAY_BYTES        , epics  }
+	{ CA_AUTO_ARRAY_BYTES , EPICS_CA_AUTO_ARRAY_BYTES       , epics  }
+	{ CA_SRCH_TIME        , EPICS_CA_MAX_SEARCH_PERIOD      , epics  }
+	{ CA_BEAC_TIME        , EPICS_CA_BEACON_PERIOD          , epics  }
+	{ TZ                  , EPICS_TZ                        , epics  }
+	{ TS_NTP_INET         , EPICS_TS_NTP_INET               , epics  }
+	{ IOC_LOG_PORT        , EPICS_IOC_LOG_PORT              , epics  }
+	{ IOC_LOG_INET        , EPICS_IOC_LOG_INET              , epics  }
+	{ IOC_LOG_FILE_LIMIT  , EPICS_IOC_LOG_FILE_LIMIT        , epics  }
+	{ IOC_LOG_FILE_NAME   , EPICS_IOC_LOG_FILE_NAME         , epics  }
+	{ IOC_LOG_FILE_COMMAND, EPICS_IOC_LOG_FILE_COMMAND      , epics  }
+}
+
+file "iocE3EnvVar-ess.template"
+{
+pattern { "" }
+	{ "" }
+}

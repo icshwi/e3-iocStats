@@ -1,0 +1,17 @@
+record(bo, "$(IOCNAME)")
+{
+    field(DESC, "Update setting readbacks")
+    field(ZNAM, "Revert")
+    field(ONAM, "revert")
+    field(FLNK, "$(IOCNAME):E3_IOCSH_PS1")
+    field(HIGH, "2")
+    field( VAL, "1")
+    field(PINI, "YES")
+}
+
+record(stringin, "$(IOCNAME):E3_IOCSH_PS1")
+{
+  field(DESC, "IOCSH_PS1")
+  field(DTYP, "IOC epics var")
+  field(INP , "@IOCSH_PS1")
+}
