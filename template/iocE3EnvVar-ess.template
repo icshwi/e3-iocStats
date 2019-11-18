@@ -1,4 +1,4 @@
-record(bo, "$(IOCNAME)")
+record(bo, "$(IOCNAME):Trigger1__")
 {
     field(DESC, "Update setting readbacks")
     field(ZNAM, "Revert")
@@ -14,4 +14,17 @@ record(stringin, "$(IOCNAME):E3_IOCSH_PS1")
   field(DESC, "IOCSH_PS1")
   field(DTYP, "IOC epics var")
   field(INP , "@IOCSH_PS1")
+}
+
+
+record(scalcout, "$(IOCNAME):PREF_scalc__")
+{
+  field(CALC, "PRINTF('REQUIRE:%s', SSCANF(AA,'%s'))")
+  field(INAA, "$(IOCNAME):E3_IOCSH_PS1.VAL CPP")
+  field( OUT, "$(IOCNAME):E3_IOCSH_PREF PP MS")
+}
+
+
+record(stringin, "$(IOCNAME):E3_IOCSH_PREF")
+{
 }
