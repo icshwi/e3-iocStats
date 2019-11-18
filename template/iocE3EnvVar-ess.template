@@ -19,7 +19,7 @@ record(stringin, "$(IOCNAME):E3_IOCSH_PS1")
 
 record(scalcout, "$(IOCNAME):PREF_scalc__")
 {
-  field(CALC, "SSCANF(AA,'%s')")
+  field(CALC, "PRINTF('REQUIRE:%s', SSCANF(AA,'%s'))")
   field(INAA, "$(IOCNAME):E3_IOCSH_PS1.VAL CPP")
   field( OUT, "$(IOCNAME):E3_IOCSH_PREF PP MS")
 }
